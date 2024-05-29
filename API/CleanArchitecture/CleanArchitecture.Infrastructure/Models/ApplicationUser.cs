@@ -1,0 +1,25 @@
+﻿using CleanArchitecture.Core.DTOs.Account;
+using CleanArchitecture.Core.Entities.TravelEntities;
+using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+
+namespace CleanArchitecture.Infrastructure.Models
+{
+    public class ApplicationUser : IdentityUser
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public  DateTime? DeleteTime { get; set; }
+
+        public bool isDeleted { get; set; } = false;
+
+        public  List<TravelRoute> TravelRoutes { get; set; }
+        public  List<RefreshToken> RefreshTokens { get; set; }
+        public bool OwnsToken(string token)
+        {
+            return this.RefreshTokens?.Find(x => x.Token == token) != null;
+        }
+    }
+}
